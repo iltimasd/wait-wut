@@ -1,59 +1,20 @@
-<script context="module">
-	export const prerender = true;
-</script>
-
 <script>
-	import Counter from '$lib/Counter.svelte';
+  import { fade } from "svelte/transition";
+  import { onMount } from "svelte";
+
+  let mounted;
+  onMount(() => {
+    mounted = true;
+  });
 </script>
 
-<svelte:head>
-	<title>Home</title>
-</svelte:head>
-
-<section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+<input type="checkbox" bind:checked={mounted} />
+{#if mounted}
+  <div in:fade|local={{ duration: 1000, delay: 1000 }}>
+    <h2>maybe nesting will help?</h2>
+  </div>
+  <h1 in:fade|local={{ duration: 1000, delay: 2000 }}>headers</h1>
+  <h3 in:fade|local={{ duration: 1000, delay: 2250 }}>all of them</h3>
+  <input in:fade|local={{ duration: 1000, delay: 2500 }} />
+  <div in:fade|local={{ duration: 1000, delay: 2750 }}>plain div</div>
+{/if}
